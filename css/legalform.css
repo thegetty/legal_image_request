@@ -1,0 +1,149 @@
+.floated {
+	float: left;
+	vertical-align: top;
+	padding-right: 20px;
+}
+
+@media only screen and (min-width: 569px) {
+	#banner {
+		background: #ccc url(/about/images/header_trust.jpg) no-repeat center
+	}
+}
+
+.lt-ie9 #banner, .ie9 #banner {
+	background: #ccc url(/art/images/header_trust.jpg) no-repeat center
+}
+
+.inlined {
+	display: inline;
+}
+
+.borderless {
+	border-style: none;
+}
+
+.headersearchbox-submit {
+	left: 137px;
+}
+
+.searchform input[type=text] {
+	width: 90%;
+}
+
+.onethird {
+	width: 33%;
+}
+
+.onequater {
+	width: 24%;
+}
+
+.extraLine {
+	padding-bottom: 20px;
+}
+
+#rightcolumn {
+	border-top-style: solid;
+	border-top-width: 3px;
+	padding: 15px 0 0 20px;
+}
+
+h3 {
+	font-size: 14px;
+	line-height: 120%;
+	color: #666666;
+	font-style: italic;
+}
+
+h6 {
+	font-size: 0.9375em;
+}
+
+ul>li {
+	/*padding-right: 20px;*/
+	
+}
+
+ul>li:last-child {
+	padding-right: 0;
+}
+
+select {
+	height: 2.08em;
+}
+
+h4 {
+	display: inline;
+}
+
+.bulletless {
+	list-style-type: none;
+}
+
+ul.filter-list label {
+	text-indent: 0;
+}
+
+.form-element {
+	padding-right: 20px;
+}
+
+#f-request-container {
+	padding-right: 10px;
+	]
+}
+
+.row>.form-label {
+	display: block;
+}
+
+.row>.form-label>label {
+	text-align: left;
+}
+
+.button1 {
+	font-size: 200%
+}
+
+.fontsize-h4 {
+	font-size: 1.125em]
+}
+
+ol.upper-roman {
+	list-style-type: upper-roman;
+}
+
+ul.decimal {
+	list-style-type: decimal;
+}
+
+ul.decimal>li {
+	padding-bottom: 10px;
+}
+
+#licenseLinksForm {
+	text-align: center;
+}
+
+#licenseLinksForm>div {
+	text-align: left;
+	border-style: solid;
+	border-color: #808080;
+	border-width: 1px;
+	padding: 15px;
+	border-width: 1px;
+	margin-bottom: 25px;
+}
+
+#confirmConsentDiv>label {
+	text-align: left;
+}
+
+#printCheckbox {
+	floated: left;
+}
+
+#confirmConsentDiv>label>input {
+	padding: 0 10px 0 0;
+	float: left;
+}

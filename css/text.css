@@ -1,0 +1,87 @@
+.mainframe {
+	padding: 20px;
+}
+
+.floated {
+	float: left;
+}
+
+.assetSize {
+	height: 150px;
+}
+
+h1 {
+	text-align: center;
+}
+
+ul {
+	list-style-type: none;
+	text-align: left;
+	padding-bottom: 10px;
+}
+
+.item {
+	padding: 20px 10px;
+}
+
+.right {
+	float: right;
+}
+
+.center {
+	text-align: center;
+}
+
+.gray-background {
+	background-color: lightgray;
+}
+
+.assetMetadata {
+	display: none;
+	height: 150px;
+	width: 12em;
+	font: italic 10px/30px Georgia, serif;
+	position: relative;
+}
+
+.actionTab {
+	padding: 15px;
+}
+
+#assetsContainer {
+	width: 100%;
+}
+
+.assetContainer {
+	border: 3px solid black;
+	padding: .9em;
+}
+
+.author {
+	font-weight: bold;
+}
+
+img {
+	border: 1px solid #666666;
+	border-radius: .2em;
+	box-shadow: 0 .05em .25em gray;
+}
+
+.button {
+	position: absolute;
+	padding: .3em .8em;
+	left: 50px;
+	bottom: .3em;
+	right: .8em;
+	padding: .3em .8em;
+	text-decoration: none;
+	background: #58a linear-gradient(#77a0bb, #58a);
+	color: white;
+	font: bold 10px/30px Georgia, serif;
+	line-height: 1.5;
+	text-shadow: 0- .05em .05em #335166;
+	border: 1px solid #446d88;
+	border-radius: .2em;
+	box-shadow: 0 .05em .25em gray;
+	left: 50px;
+}

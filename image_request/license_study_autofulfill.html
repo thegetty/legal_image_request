@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]>   <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]><html class="no-js ie9" lang="en"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>Request for Study, Reference, or Lecture Images for
+	Personal Use</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+<meta property="og:title"
+	content="Request for Study, Reference, or Lecture Images for
+							Personal Use">
+<meta property="og:site_name"
+	content="The Getty Museum at the J. Paul Getty Trust.">
+<meta property="og:description" content="">
+<meta property="og:type" content="website">
+<meta property="og:image"
+	content="/global/r/images/getty_logo_og.png">
+
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="shortcut icon"
+	href="/global/r/images/getty_logo_favicon.ico">
+<link rel="apple-touch-icon img_src"
+	href="/global/r/images/getty_logo_favicon.png">
+<link rel="stylesheet"
+	href="/global/r/css/normalize.css">
+<link rel="stylesheet" href="/global/r/css/app.css">
+<link rel="stylesheet"
+	href="/global/r/css/helpers.css">
+<link rel="stylesheet" href="/legal/css/legalform.css">
+<!--[if lte IE 9]>
+	<link rel="stylesheet" href="/global/r/css/ie.css">
+	<![endif]-->
+<script type="text/javascript" src="/global/r/js/vendor/jquery.js"></script>
+<script type="text/javascript"
+	src="/global/r/js/vendor/jquery-dateFormat.min.js"></script>
+<script type="text/javascript"
+	src="/global/r/js/vendor/jquery.getscripts.js"></script>
+<script type="text/javascript"
+	src="/legal/scripts/order.forms.common.js"></script>
+<script type="text/javascript"
+	src="/global/r/js/getty.set-sections.js"></script>
+<script type="text/javascript"
+	src="/global/r/js/getty.get-includes.js"></script>
+<!--[if !IE 9]><!-->
+<script type="text/javascript">
+	var switchTo5x = true;
+</script>
+<script type="text/javascript"
+	src="https://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">
+	stLight.options({
+		publisher : "e01daac0-22e7-400b-8a4b-2f79ffbcdb5f",
+		doNotHash : true,
+		onhover : false
+	});
+</script>
+<!--<![endif]-->
+
+<!-- Google Analytics start -->
+<script>
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js',
+			'ga');
+
+	ga('create', 'UA-8087223-1', 'auto');
+	ga('require', 'linkid', 'linkid.js');
+	ga('send', 'pageview');
+</script>
+<!-- Google Analytics: to handle pdfs, docs, xls end  -->
+<!-- Google Analytics: to handle outbound links -->
+<script type="text/javascript">
+	function trackOutboundLink(link, category, action) {
+		try {
+			_gaq.push([ '_trackEvent', category, action ]);
+		} catch (err) {
+		}
+
+		setTimeout(function() {
+			document.location.href = link.href;
+		}, 100);
+	}
+</script>
+<script type="text/javascript">
+	ajax_header_scripts(getty_header_script_array);
+</script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						$(
+								"a[href$='pdf'],a[href$='rtf'],a[href$='doc'],a[href$='xls'],a[href*='bit.ly']")
+								.each(
+										function(index) {
+											pdfLabel = $(this).attr('href');
+											pdfOnClick = "ga('send', 'pageview','"
+													+ pdfLabel + "');";
+											$(this).attr("onClick", pdfOnClick);
+										});
+
+						$(document)
+								.delegate(
+										'input',
+										'blur change',
+										function(e) {
+											Foundation.libs.abide.validate(
+													[ this ], e);
+										});
+
+						$(document)
+								.delegate(
+										'input',
+										'keydown',
+										function(e) {
+											clearTimeout(Foundation.libs.abide.timer);
+											Foundation.libs.abide.timer = setTimeout(
+													function() {
+														Foundation.libs.abide
+																.validate(
+																		[ this ],
+																		e);
+													}.bind(this),
+													Foundation.libs.abide.settings.timeout);
+										});
+
+						$("#f-requester-status").change(
+								function() {
+									var value = $(this).val();
+									if (value == 99) {
+										$("#f-other-requester-status").prop(
+												"required", true)
+
+									} else {
+										$("#f-other-requester-status").prop(
+												"required", false);
+										$("#f-other-requester-status").prop(
+												"data-invalid", false);
+									}
+									setTimeout(option_field_toggle($(this),
+											'99', '#f-requester-status-row',
+											'#f-other-requester-status'), 200);
+
+								});
+
+						initImageRequestRow();
+
+						$(
+								'#f-libraryform input:required, #f-libraryform textarea:required, #f-libraryform select:required')
+								.bind(
+										'input blur change',
+										function() {
+											if (isValid()) {
+												$('#submitRequest').prop(
+														'disabled', false);
+												$("#submitRequest").addClass(
+														"secondary");
+											} else {
+												$('#submitRequest').prop(
+														'disabled', true);
+												$("#submitRequest")
+														.removeClass(
+																"secondary");
+											}
+										});
+
+						$('#f-libraryform').submit(
+								function() {
+									var mediaDD = $("<input>").attr("type",
+											"hidden").attr("name", "requestMD.source.MEDIADELIVERYDATE")
+									$(mediaDD).val(
+											$.format.date(new Date(),
+													"MM/dd/yyyy 'AD'"));
+
+									$('#f-libraryform').append($(mediaDD));
+								});
+					});
+</script>
+</head>
+<body class="art minimal">
+	<section id="mobile-panel-nav"
+		class="mobile-panel hide-for-print show-for-medium-down">
+		<div id="mobile-panel-wrap" class="top-bar-section">
+			<ul id="mobile-panel-nav-sections">
+				<li>
+					<!-- leave no space between these, as they're inline-block, and whitespace messes up layout-->
+					<a href="https://www.getty.edu">Getty.edu</a><span
+					class="icon-remove icon-large close"></span>
+				</li>
+				<li class="divider"></li>
+				<li id="mobile-panel-nav-sections-container" class="has-dropdown">
+					<a id="mobile-panel-nav-section-name" href="/">The Getty</a>
+					<ul id="mobile-panel-nav-section-nav-container" class="dropdown">
+					</ul>
+				</li>
+			</ul>
+			<ul id="mobile-panel-nav-extras">
+				<li class="divider"></li>
+			</ul>
+		</div>
+	</section>
+	<div id="wrapper">
+		<div id="site-alert" class="essential hide"></div>
+		<div id="global-nav-wrapper" class="row collapse"></div>
+		<div id="banner"
+			class="row collapse hide-on-print hide-for-medium-down">
+			<div class="small-12 columns">
+				<h1>
+					<a id="getty-logo" href="/" title="The Getty homepage"><span
+						class="icon-getty-logo pull-left"></span></a> <a id="section-title"
+						href="/museum">The J. Paul Getty Museum</a>
+				</h1>
+			</div>
+		</div>
+
+		<div class="row hide-on-print hide-for-medium-down" id="level2-nav">
+			<div class="small-12">
+				<nav class="top-bar">
+					<section class="top-bar-section">
+						<ul id="level2-nav-container" class="left"></ul>
+					</section>
+				</nav>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="small-12 columns" id="main">
+				<div class="row" id="utilities-row">
+					<!-- print, share -->
+					<div id="utility-display"
+						class="small-1 small-push-11 columns hide-on-print">
+						<span class="icon-cog icon-border pull-right show-for-small"></span>
+					</div>
+					<!-- Utilities and title set for no left column, or "flush left" -->
+					<div id="utilities"
+						class="small-11 small-pull-1 medium-3 medium-push-9 columns hide-on-print"></div>
+					<div class="small-11 small-pull-1 medium-9 medium-pull-3 columns">
+						<h2>Request for Study, Reference, or Lecture Images for
+							Personal Use</h2>
+					</div>
+					<!-- /flush-left title utilities -->
+				</div>
+				<!-- / utilities-row -->
+
+				<div class="row" id="content">
+					<div id="center-column" class="small-12 columns">
+						<p>
+							Reproduction in a Print Publication, E-Publication, Electronic
+							Media or Television/Film/Video Permission available via a
+							different <a href="index.html">form.</a>
+						</p>
+
+						<p>All requests for images and permission to reproduce are
+							subject to approval. Each request is separately considered, and
+							permission is granted on a case-by-case basis at the sole
+							discretion of the Museum.</p>
+
+						<p>Color images will be provided unless photography is only
+							available in black and white. Files will be 72 PPI JPEG at
+							1000x1000 pixels, appropriate for PowerPoint use. Note that JPEG
+							Files may not be re-used for print publication in the future.</p>
+
+						<p>
+							<strong>Please fill out the form completely. Requests
+								submitted with missing information may be delayed or returned to
+								the requester.</strong>
+						</p>
+
+						<section class="details-list">
+							<p>
+								<small><em>Required fields are marked with an
+										asterisk <span class="icon-asterisk"></span>.
+								</em></small>
+							</p>
+							<form id="f-libraryform" name="libraryform" method="POST"
+								action="/license/license" data-abide
+								class="custom" accept-charset="UTF-8">
+								<input type="hidden" NAME="publications.items[0]"
+									VALUE="3207:3338"><input type="hidden"
+									NAME="intendedUse.source.USE1PUBLICATIONTYPE" VALUE="Study"><input
+									TYPE="hidden" NAME="requester.order" value="1" /><input
+									TYPE="hidden" NAME="images.order" value="2" /><input
+									TYPE="hidden" NAME="imagespecs.order" value="3" /><input
+									TYPE="hidden" NAME="publications.order" value="4" /><input
+									TYPE="hidden" NAME="intendedUse.order" value="5" /><input
+									TYPE="hidden" NAME="autofulfill" value="Y" /><input
+									TYPE="hidden" NAME="requestMD.source.TOTALIMAGES" value="1" /><input
+									TYPE="hidden" NAME="redirect"
+									value="/legal/image_request/license_study_autofulfill_thank_you.html" />
+								<input TYPE="hidden" NAME="requestMD.source.REQUESTSTATUSCD"
+									value="3110" /> <input TYPE="hidden"
+									NAME="requestMD.source.CONTACTNAME"
+									value="Rights & Reproductions" /><input TYPE="hidden"
+									NAME="exporter" value="pdf" />
+								<div id="f-request-container">
+									<div id="f-request-1">
+										<div class="row">
+											<div class="columns extraLine">
+												<h4>Requester Information</h4>
+											</div>
+										</div>
+										<div class="row">
+											<ul>
+												<li style="width: 20%" class="floated bulletless"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-requester-title">Title <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div class="form-element">
+															<SELECT id="f-requester-title"
+																NAME="requester.source.TITLE" required>
+																<OPTION value="">-- Select a title --</OPTION>
+																<OPTION>Mr.</OPTION>
+																<OPTION>Mrs.</OPTION>
+																<OPTION>Ms.</OPTION>
+																<OPTION>Prof.</OPTION>
+																<OPTION>Dr.</OPTION>
+															</SELECT> <small class="error"><span
+																class="icon-exclamation-sign"></span> Please select a
+																title.</small>
+														</div>
+													</div></li>
+												<li style="width: 40%" class="bulletless floated"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-first-name">First name <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div class="form-element">
+															<input id="f-first-name" placeholder="First name"
+																TYPE="text" NAME="requester.source.FIRSTNAME" SIZE="50"
+																MAXLENGTH="80" required> <small class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																first name.</small>
+														</div>
+													</div></li>
+												<li style="width: 40%" class="bulletless floated"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-last-name">Last name <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div>
+															<input id="f-last-name" placeholder="Last name"
+																TYPE="text" NAME="requester.source.LASTNAME" SIZE="50"
+																MAXLENGTH="80" required> <small class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																last name.</small>
+														</div>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="row">
+											<ul>
+												<li class="bulletless"><div class="row">
+														<div class="form-label">
+															<label for="f-company">Company/Organization</label>
+														</div>
+														<div>
+															<input id="f-company" TYPE="text"
+																placeholder="Company/Organization"
+																NAME="requester.source.COMPANY" SIZE="50"
+																MAXLENGTH="120">
+														</div>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="row">
+											<ul>
+												<li class="bulletless floated onethird"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-email">E-mail address <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div class="form-element">
+															<input id="f-email" TYPE="text"
+																NAME="requester.source.EMAIL" SIZE="50" MAXLENGTH="80"
+																placeholder="E-mail address" pattern="email" required>
+															<small class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																e-mail.</small>
+														</div>
+													</div></li>
+												<li class="bulletless floated onethird"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-email2"">Verify e-mail address <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div>
+															<input id="f-email2" TYPE="text" data-equalto="f-email"
+																SIZE="50" placeholder="Verify e-mail address"
+																MAXLENGTH="80" required> <small class="error"><span
+																class="icon-exclamation-sign"></span> Please check that
+																your e-mail matches.</small>
+														</div>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="row">
+											<ul>
+												<li class="bulletless"><div class="row">
+														<div class="form-label">
+															<label for="f-address"> Street/PO Box <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div>
+															<input id="f-address" TYPE="text"
+																NAME="requester.source.ADDRESSLINE1" SIZE="100"
+																MAXLENGTH="200" placeholder="Street / PO Box" required>
+															<small class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																address.</small>
+														</div>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="row">
+											<ul>
+												<li style="width: 40%;" class="bulletless floated"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-city"> City <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div class="form-element">
+															<input id="f-city" TYPE="text"
+																NAME="requester.source.CITY" SIZE="50" MAXLENGTH="80"
+																placeholder="City" required> <small
+																class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																city.</small>
+														</div>
+													</div></li>
+												<li style="width: 40%;" class="bulletless floated"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-state"> State/Province <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div class="form-element">
+															<input id="f-state" TYPE="text"
+																NAME="requester.source.STATE" SIZE="50" MAXLENGTH="80"
+																placeholder="State/Province" required> <small
+																class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																state or province.</small>
+														</div>
+													</div></li>
+												<li style="width: 20%;" class="bulletless floated"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-zip">Zip/Postal code<span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div>
+															<input id="f-zip" TYPE="text"
+																NAME="requester.source.POSTALCODE" MAXLENGTH="15"
+																placeholder="Zip/Postal code" required> <small
+																class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																zip/postal code.</small>
+														</div>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="row">
+											<ul>
+												<li class="bulletless floated onethird"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-country"></span> Country <span
+																class="icon-asterisk"></label>
+														</div>
+														<div>
+															<SELECT id="f-country" NAME="requester.source.COUNTRY"
+																SIZE="1" required>
+																<OPTION value="">-- Select a country --</OPTION>
+	                                                            <option>United States of America</option>
+                                                                <option>Afghanistan</option>
+                                                                <option>Åland Islands</option>
+                                                                <option>Albania</option>
+                                                                <option>Algeria</option>
+                                                                <option>American Samoa</option>
+                                                                <option>Andorra</option>
+                                                                <option>Angola</option>
+                                                                <option>Anguilla</option>
+                                                                <option>Antarctica</option>
+                                                                <option>Antigua and Barbuda</option>
+                                                                <option>Argentina</option>
+                                                                <option>Armenia</option>
+                                                                <option>Aruba</option>
+                                                                <option>Australia</option>
+                                                                <option>Austria</option>
+                                                                <option>Azerbaijan</option>
+                                                                <option>Bahamas</option>
+                                                                <option>Bahrain</option>
+                                                                <option>Bangladesh</option>
+                                                                <option>Barbados</option>
+                                                                <option>Belarus</option>
+                                                                <option>Belgium</option>
+                                                                <option>Belize</option>
+                                                                <option>Benin</option>
+                                                                <option>Bermuda</option>
+                                                                <option>Bhutan</option>
+                                                                <option>Bolivia, Plurinational State of</option>
+                                                                <option>Bonaire, Sint Eustatius and Saba</option>
+                                                                <option>Bosnia and Herzegovina</option>
+                                                                <option>Botswana</option>
+                                                                <option>Bouvet Island</option>
+                                                                <option>Brazil</option>
+                                                                <option>British Indian Ocean Territory</option>
+                                                                <option>Brunei Darussalam</option>
+                                                                <option>Bulgaria</option>
+                                                                <option>Burkina Faso</option>
+                                                                <option>Burundi</option>
+                                                                <option>Cambodia</option>
+                                                                <option>Cameroon</option>
+                                                                <option>Canada</option>
+                                                                <option>Cabo Verde</option>
+                                                                <option>Cayman Islands</option>
+                                                                <option>Central African Republic</option>
+                                                                <option>Chad</option>
+                                                                <option>Chile</option>
+                                                                <option>China</option>
+                                                                <option>Christmas Island</option>
+                                                                <option>Cocos (Keeling) Islands</option>
+                                                                <option>Colombia</option>
+                                                                <option>Comoros</option>
+                                                                <option>Congo</option>
+                                                                <option>Congo, Democratic Republic of the</option>
+                                                                <option>Cook Islands</option>
+                                                                <option>Costa Rica</option>
+                                                                <option>Côte d'Ivoire</option>
+                                                                <option>Croatia</option>
+                                                                <option>Cuba</option>
+                                                                <option>Curaçao</option>
+                                                                <option>Cyprus</option>
+                                                                <option>Czechia</option>
+                                                                <option>Denmark</option>
+                                                                <option>Djibouti</option>
+                                                                <option>Dominica</option>
+                                                                <option>Dominican Republic</option>
+                                                                <option>Ecuador</option>
+                                                                <option>Egypt</option>
+                                                                <option>El Salvador</option>
+                                                                <option>Equatorial Guinea</option>
+                                                                <option>Eritrea</option>
+                                                                <option>Estonia</option>
+                                                                <option>Ethiopia</option>
+                                                                <option>Falkland Islands (Malvinas)</option>
+                                                                <option>Faroe Islands</option>
+                                                                <option>Fiji</option>
+                                                                <option>Finland</option>
+                                                                <option>France</option>
+                                                                <option>French Guiana</option>
+                                                                <option>French Polynesia</option>
+                                                                <option>French Southern Territories</option>
+                                                                <option>Gabon</option>
+                                                                <option>Gambia</option>
+                                                                <option>Georgia</option>
+                                                                <option>Germany</option>
+                                                                <option>Ghana</option>
+                                                                <option>Gibraltar</option>
+                                                                <option>Greece</option>
+                                                                <option>Greenland</option>
+                                                                <option>Grenada</option>
+                                                                <option>Guadeloupe</option>
+                                                                <option>Guam</option>
+                                                                <option>Guatemala</option>
+                                                                <option>Guernsey</option>
+                                                                <option>Guinea</option>
+                                                                <option>Guinea-Bissau</option>
+                                                                <option>Guyana</option>
+                                                                <option>Haiti</option>
+                                                                <option>Heard Island and McDonald Islands</option>
+                                                                <option>Holy See</option>
+                                                                <option>Honduras</option>
+                                                                <option>Hong Kong</option>
+                                                                <option>Hungary</option>
+                                                                <option>Iceland</option>
+                                                                <option>India</option>
+                                                                <option>Indonesia</option>
+                                                                <option>Iran, Islamic Republic of</option>
+                                                                <option>Iraq</option>
+                                                                <option>Ireland</option>
+                                                                <option>Isle of Man</option>
+                                                                <option>Israel</option>
+                                                                <option>Italy</option>
+                                                                <option>Jamaica</option>
+                                                                <option>Japan</option>
+                                                                <option>Jersey</option>
+                                                                <option>Jordan</option>
+                                                                <option>Kazakhstan</option>
+                                                                <option>Kenya</option>
+                                                                <option>Kiribati</option>
+                                                                <option>Korea, Democratic People's Republic of</option>
+                                                                <option>Korea, Republic of</option>
+                                                                <option>Kosovo</option>
+                                                                <option>Kuwait</option>
+                                                                <option>Kyrgyzstan</option>
+                                                                <option>Lao People's Democratic Republic</option>
+                                                                <option>Latvia</option>
+                                                                <option>Lebanon</option>
+                                                                <option>Lesotho</option>
+                                                                <option>Liberia</option>
+                                                                <option>Libya</option>
+                                                                <option>Liechtenstein</option>
+                                                                <option>Lithuania</option>
+                                                                <option>Luxembourg</option>
+                                                                <option>Macao</option>
+                                                                <option>North Macedonia</option>
+                                                                <option>Madagascar</option>
+                                                                <option>Malawi</option>
+                                                                <option>Malaysia</option>
+                                                                <option>Maldives</option>
+                                                                <option>Mali</option>
+                                                                <option>Malta</option>
+                                                                <option>Marshall Islands</option>
+                                                                <option>Martinique</option>
+                                                                <option>Mauritania</option>
+                                                                <option>Mauritius</option>
+                                                                <option>Mayotte</option>
+                                                                <option>Mexico</option>
+                                                                <option>Micronesia, Federated States of</option>
+                                                                <option>Moldova, Republic of</option>
+                                                                <option>Monaco</option>
+                                                                <option>Mongolia</option>
+                                                                <option>Montenegro</option>
+                                                                <option>Montserrat</option>
+                                                                <option>Morocco</option>
+                                                                <option>Mozambique</option>
+                                                                <option>Myanmar</option>
+                                                                <option>Namibia</option>
+                                                                <option>Nauru</option>
+                                                                <option>Nepal</option>
+                                                                <option>Netherlands</option>
+                                                                <option>New Caledonia</option>
+                                                                <option>New Zealand</option>
+                                                                <option>Nicaragua</option>
+                                                                <option>Niger</option>
+                                                                <option>Nigeria</option>
+                                                                <option>Niue</option>
+                                                                <option>Norfolk Island</option>
+                                                                <option>Northern Mariana Islands</option>
+                                                                <option>Norway</option>
+                                                                <option>Oman</option>
+                                                                <option>Pakistan</option>
+                                                                <option>Palau</option>
+                                                                <option>Palestine, State of</option>
+                                                                <option>Panama</option>
+                                                                <option>Papua New Guinea</option>
+                                                                <option>Paraguay</option>
+                                                                <option>Peru</option>
+                                                                <option>Philippines</option>
+                                                                <option>Pitcairn</option>
+                                                                <option>Poland</option>
+                                                                <option>Portugal</option>
+                                                                <option>Puerto Rico</option>
+                                                                <option>Qatar</option>
+                                                                <option>Réunion</option>
+                                                                <option>Romania</option>
+                                                                <option>Russian Federation</option>
+                                                                <option>Rwanda</option>
+                                                                <option>Saint Barthélemy</option>
+                                                                <option>Saint Helena, Ascension and Tristan da Cunha</option>
+                                                                <option>Saint Kitts and Nevis</option>
+                                                                <option>Saint Lucia</option>
+                                                                <option>Saint Martin (French part)</option>
+                                                                <option>Saint Pierre and Miquelon</option>
+                                                                <option>Saint Vincent and the Grenadines</option>
+                                                                <option>Samoa</option>
+                                                                <option>San Marino</option>
+                                                                <option>Sao Tome and Principe</option>
+                                                                <option>Saudi Arabia</option>
+                                                                <option>Senegal</option>
+                                                                <option>Serbia</option>
+                                                                <option>Seychelles</option>
+                                                                <option>Sierra Leone</option>
+                                                                <option>Singapore</option>
+                                                                <option>Sint Maarten (Dutch part)</option>
+                                                                <option>Slovakia</option>
+                                                                <option>Slovenia</option>
+                                                                <option>Solomon Islands</option>
+                                                                <option>Somalia</option>
+                                                                <option>South Africa</option>
+                                                                <option>South Georgia and the South Sandwich Islands</option>
+                                                                <option>South Sudan</option>
+                                                                <option>Spain</option>
+                                                                <option>Sri Lanka</option>
+                                                                <option>Sudan</option>
+                                                                <option>Suriname</option>
+                                                                <option>Svalbard and Jan Mayen</option>
+                                                                <option>Eswatini</option>
+                                                                <option>Sweden</option>
+                                                                <option>Switzerland</option>
+                                                                <option>Syrian Arab Republic</option>
+                                                                <option>Taiwan, Province of China</option>
+                                                                <option>Tajikistan</option>
+                                                                <option>Tanzania, United Republic of</option>
+                                                                <option>Thailand</option>
+                                                                <option>Togo</option>
+                                                                <option>Tokelau</option>
+                                                                <option>Tonga</option>
+                                                                <option>Trinidad and Tobago</option>
+                                                                <option>Tunisia</option>
+                                                                <option>Turkey</option>
+                                                                <option>Turkmenistan</option>
+                                                                <option>Turks and Caicos Islands</option>
+                                                                <option>Tuvalu</option>
+                                                                <option>Uganda</option>
+                                                                <option>Ukraine</option>
+                                                                <option>United Arab Emirates</option>
+                                                                <option>United Kingdom of Great Britain and Northern Ireland</option>
+                                                                <option>United States Minor Outlying Islands</option>
+                                                                <option>Uruguay</option>
+                                                                <option>Uzbekistan</option>
+                                                                <option>Vanuatu</option>
+                                                                <option>Venezuela, Bolivarian Republic of</option>
+                                                                <option>Viet Nam</option>
+                                                                <option>Virgin Islands, British</option>
+                                                                <option>Virgin Islands, U.S.</option>
+                                                                <option>Wallis and Futuna</option>
+                                                                <option>Western Sahara</option>
+                                                                <option>Yemen</option>
+                                                                <option>Zambia</option>
+                                                                <option>Zimbabwe</option>
+
+															</SELECT> <small class="error"><span
+																class="icon-exclamation-sign"></span> Please select your
+																country.</small>
+														</div>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="row">
+											<ul>
+												<li class="bulletless floated onethird"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-phone">Phone <span
+																class="icon-asterisk"></span></label>
+														</div>
+														<div class="form-element">
+															<input id="f-phone" TYPE="text" type="alpha_numeric"
+																NAME="requester.source.PHONE" SIZE="50" MAXLENGTH="80"
+																placeholder="Phone" required> <small
+																class="error"><span
+																class="icon-exclamation-sign"></span> Please enter your
+																telephone number.</small>
+														</div>
+													</div></li>
+												<li class="bulletless floated onethird"><div
+														class="row">
+														<div class="form-label">
+															<label for="f-fax">Fax</label>
+														</div>
+														<div>
+															<input id="f-fax" TYPE="text" NAME="requester.source.FAX"
+																SIZE="50" MAXLENGTH="80" placeholder="Fax">
+														</div>
+													</div></li>
+											</ul>
+										</div>
+
+										<div class="row">
+											<ul>
+												<li style="width: 100%;" class="bulletless floated">
+													<div class="row">
+														<label for="f-requester-status" style="text-align: left"
+															for="f-requester_status">Requester's status<span
+															class="icon-asterisk"></span>
+														</label>
+													</div>
+													<div style="width: 100%" class="row">
+														<div style="width: 30%" class="floated">
+															<SELECT name="requester.source.STATUSCD"
+																id="f-requester-status" required>
+																<OPTION SELECTED value="">--Select status--</OPTION>
+																<option VALUE="10">Not-for-profit organization</option>
+																<option VALUE="20">For-profit company</option>
+																<option VALUE="30">Private individual</option>
+																<option VALUE="99">Other (explain)</option>
+															</select> <small class="error"><span
+																class="icon-exclamation-sign"></span> Please select your
+																organization's status.</small>
+														</div>
+														<div id="f-requester-status-row"
+															style="width: 70%; padding-right: 0; display: none"
+															class="floated">
+															<input style="width: 95%; display: inline;"
+																id="f-other-requester-status" TYPE="text"
+																NAME="requester.source.STATUSDESCRIPTION" SIZE="50"
+																MAXLENGTH="400" placeholder="Explain other status">
+															<span class="icon-asterisk"></span> <small
+																style="width: 95%;" class="error"><span
+																class="icon-exclamation-sign"></span> Please explain
+																other status.</small>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+								<hr>
+
+								<div id="f-request-container">
+									<div id="f-request-1">
+										<div class="row">
+											<div class="columns extraLine">
+												<h4 id="imageRequestedCapital">Image(s) Requested</h4>
+											</div>
+										</div>
+										<div class="row f-request">
+											<ul>
+												<li style="width: 30%;" class="bulletless floated">
+													<div>
+														<label style="text-align: left;" for="f-request-1-artist">
+															Artist <span class="icon-asterisk"></span>
+														</label>
+													</div>
+												<li style="width: 30%;" class="bulletless floated">
+													<div>
+														<label style="text-align: left;" for="f-request-1-title">
+															Title <span class="icon-asterisk"></span>
+														</label>
+													</div>
+												</li>
+												<li style="width: 35%;" class="bulletless floated">
+													<div>
+														<label style="text-align: left;" for="f-request-1-id">
+															Accession number <span class="icon-asterisk"></span>
+														</label>
+													</div>
+												</li>
+												<li style="width: 5%;" class="bulletless floated">
+													<div style="text-align: center; vertical-align: middle;">
+														<label style="text-align: left;"></label>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<div class="row f-request">
+											<ul>
+												<li style="width: 30%;" class="bulletless floated">
+													<div class="row" style="margin: 0">
+														<input id="f-request-0-artist"
+															name="images.items[0].author" type="text" size="50"
+															MAXLENGTH="200" required> <small class="error"><span
+															class="icon-exclamation-sign"></span> Please enter the
+															artist's name.</small>
+													</div>
+												<li style="width: 30%;" class="bulletless floated">
+													<div class="row" style="margin: 0">
+														<input id="f-request-0-title" name="images.items[0].title"
+															type="text" size="50" MAXLENGTH="200" required> <small
+															class="error"><span class="icon-exclamation-sign"></span>
+															Please enter the title.</small>
+													</div>
+												</li>
+												<li style="width: 35%;" class="bulletless floated">
+													<div class="row" style="margin: 0">
+														<input id="f-request-0-id"
+															name="images.items[0].tmsAccessionNumber" type="text"
+															size="50" MAXLENGTH="200" required> <small
+															class="error"><span class="icon-exclamation-sign"></span>
+															Please enter the accession number.</small>
+													</div>
+												</li>
+												<li style="display: none">
+													<div class="row">
+														<input id="f-request-0-uoid" name="images.items[0].id"
+															type="text">
+													</div>
+												</li>
+												<li style="width: 5%;" class="bulletless floated">
+													<div style="text-align: center; vertical-align: middle;">
+														<a id="removeRequest-1" style="display: none;"
+															class="round small secondary removeRequest"><img
+															border="0" src="images/delete.png" width="16" height="16"></a>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="row">
+										<ul>
+											<li class="bulletless"><div class="row">
+													<div class="form-label">
+														<label for="f-addl-info">Any additional
+															information you wish to provide </label>
+													</div>
+													<div>
+														<TEXTAREA id="f-addl-info"
+															NAME="intendedUse.source.USE1NOTES" ROWS="5" COLS="51"
+															WRAP="virtual" maxlength="2000"></TEXTAREA>
+													</div>
+												</div></li>
+										</ul>
+									</div>
+								</div>
+
+								<div id="confirmConsentDiv">
+									<label for="cs-f-print-checkbox"> <input
+										id="confirmConsent" type="checkbox" name="print-checkbox"
+										required> <strong> I certify that the above
+											information is true and correct, and that I agree to the
+											Terms of Use for Study, Reference, or Lecture Images for
+											Personal Use</strong> <small class="error"><span
+											class="icon-exclamation-sign"></span> Please certify that the
+											above information is true and correct.</small>
+									</label>
+								</div>
+
+								<div class="row">
+									<div class="small-12 columns text-center">
+										<input type="button" class="button small round" name="cancel"
+											value="Cancel" id="cancel-button"> <input
+											id="submitRequest" type="submit"
+											class="button small round secondary" name="submit"
+											value="Submit" disabled />
+									</div>
+								</div>
+					</div>
+
+					</form>
+					</section>
+				</div>
+			</div>
+			<!-- /#content -->
+		</div>
+		<!-- /#main -->
+	</div>
+	<!-- /.row -->
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- Footer -->
+	<footer id="footer" class="row"></footer>
+
+	<script type="text/javascript">
+		getty_footer_script_array.push(
+				"/global/r/js/foundation/foundation.abide.js",
+				"/global/r/js/foundation/foundation.forms.js");
+		getty_chrome_includes();
+	</script>
+
+</body>
+</html>
